@@ -10,8 +10,10 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(name = "last_name")
     private String lastName;
     private String document;
+    @Column(name = "programming_language")
     private String programingLanguage;
 
     public Person() {
@@ -64,5 +66,10 @@ public class Person {
 
     public void setProgramingLanguage(String programingLanguage) {
         this.programingLanguage = programingLanguage;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }
