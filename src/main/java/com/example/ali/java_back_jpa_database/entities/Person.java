@@ -14,7 +14,7 @@ public class Person {
     private String lastName;
     private String document;
     @Column(name = "programming_language")
-    private String programingLanguage;
+    private String programmingLanguage;
 
     public Person() {
 
@@ -25,7 +25,7 @@ public class Person {
         this.name = name;
         this.lastName = lastName;
         this.document = document;
-        this.programingLanguage = programingLanguage;
+        this.programmingLanguage = programingLanguage;
     }
 
     public Long getId() {
@@ -60,12 +60,12 @@ public class Person {
         this.document = document;
     }
 
-    public String getProgramingLanguage() {
-        return programingLanguage;
+    public String getProgrammingLanguage() {
+        return programmingLanguage;
     }
 
-    public void setProgramingLanguage(String programingLanguage) {
-        this.programingLanguage = programingLanguage;
+    public void setProgrammingLanguage(String programmingLanguage) {
+        this.programmingLanguage = programmingLanguage;
     }
 
     @Override

@@ -3,3 +3,4 @@ INSERT INTO persons (name, last_name, document, programming_language) VALUES ('P
 INSERT INTO persons (name, last_name, document, programming_language) VALUES ('John', 'Dow', '3', 'JavaScript');
 INSERT INTO persons (name, last_name, document, programming_language) VALUES ('Maria', 'Roe', '4', 'Java');
 INSERT INTO persons (name, last_name, document, programming_language) VALUES ('Josefa', 'Rae', '5', 'Kotlin');
+INSERT INTO persons (name, last_name, document, programming_language) VALUES ('Josefa6', 'Rae', '6', 'KMM');

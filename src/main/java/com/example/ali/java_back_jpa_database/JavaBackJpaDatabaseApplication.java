@@ -22,10 +22,11 @@ public class JavaBackJpaDatabaseApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        List<Person> personList = (List<Person>) personRepository.findAll();
+        List<Person> personList = (List<Person>) personRepository.findByProgrammingLanguage("Kotlin");
+//        List<Person> personList = (List<Person>) personRepository.findAll();
 
         personList.forEach(person -> {
-            System.out.print(person);
+            System.out.println(person.getProgrammingLanguage());
         });
     }
 }
