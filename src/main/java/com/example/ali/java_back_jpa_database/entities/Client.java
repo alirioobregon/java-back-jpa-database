@@ -2,29 +2,35 @@ package com.example.ali.java_back_jpa_database.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "clients")
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id_client")
+    private Long idClient;
 
     private String name;
 
     private String document;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Address> addresses;
 
     public Client(String name, String document) {
         this.name = name;
         this.document = document;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdClient() {
+        return idClient;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdClient(Long idClient) {
+        this.idClient = idClient;
     }
 
     public String getName() {
