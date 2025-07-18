@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,14 +28,27 @@ public class UserController {
         return userService.findAll();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
     public ResponseEntity<?> create(@Valid @RequestBody User user, BindingResult result) {
         try {
             if (result.hasFieldErrors()) {
                 return validation(result);
             }
-            user.setError("");
             return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
+        } catch (Exception e) {
+            ResponseGeneric responseGeneric = new ResponseGeneric();
+            responseGeneric.setError(e.getMessage());
+            responseGeneric.setStatusCode(HttpStatus.CONFLICT.value());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(responseGeneric);
+        }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@Valid @RequestBody User user, BindingResult result) {
+        try {
+            user.setAdmin(false);
+            return create(user, result);
         } catch (Exception e) {
             ResponseGeneric responseGeneric = new ResponseGeneric();
             responseGeneric.setError(e.getMessage());
