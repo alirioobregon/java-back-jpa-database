@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8080",originPatterns = "*")
 @RequestMapping("/api/products")
 public class ProductController {
 
@@ -27,11 +29,13 @@ public class ProductController {
 //    private ProductValidation productValidation;
 
     @GetMapping("")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public List<Product> list() {
         return service.findAll();
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<?> view(@PathVariable Long id) {
         Optional<Product> productOptional = service.findById(id);
         if (productOptional.isPresent()) {
@@ -60,6 +64,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> update(@RequestBody Product product, BindingResult result, @PathVariable Long id) {
         if (result.hasFieldErrors()){
             return validation(result);
@@ -73,6 +78,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> delete(@PathVariable Long id) {
 //        Product newProduct = new Product();
 //        newProduct.setId(id);
